@@ -1,0 +1,72 @@
+<html>
+  <body>
+    <form name="listCandidate">
+      <center><br>
+      <input type="text" id="nameCandidate" placeHolder="Who are you going to vote?" />
+      <input type="button" id="vote" value="Select" onclick="cVote()"/>
+      <div id="display"></div>
+      <br><br>
+      <p id="listC">List of Candidates</p>
+      <div id="listCandidate"></div>
+      <p id="listBC">List of Black Listed Candidates</p>
+      <div id="blistCandidate"></div>
+      </center>
+    </form>
+    
+    <script>
+      var canName = document.getElementById("nameCandidate");
+      var listCan = document.getElementById("listCandidate");
+      var bListCan = document.getElementById("blistCandidate");
+      var output = document.getElementById("display");
+      
+      function Candidates(id,name,age,des) {
+          this.id = id;
+          this.name = name;
+          this.age = age;
+		  this.des = des;
+      }
+      var ECandidates = new Array();
+      ECandidates[0] = new Candidates(1,"Rodrigo Duterte",70,"Leadership");
+      ECandidates[1] = new Candidates(2,"Grace Poe",50,"Congratulations, you have chosen a valid candidate");
+      ECandidates[2] = new Candidates(3,"Miriam Santiago",72,"Intelligence");
+      ECandidates[3] = new Candidates(4,"Mar Roxas",65,"I am sorry but your candidate is blacklisted.");
+      ECandidates[4] = new Candidates(5,"Jejomar Binay",75,"I am sorry but your candidate is blacklisted.");
+      
+      function BCandidates(bid,bname,bage) {
+          this.bid = bid;
+          this.bname = bname;
+          this.bage = bage;
+      }
+      
+      var BECandidates = new Array();
+      BECandidates[0] = new BCandidates(4,"Mar Roxas",65);
+      BECandidates[1] = new BCandidates(5,"Jejomar Binay",75);
+
+      for (var i=0; i < ECandidates.length;i++) {
+          listCan.innerHTML += "" + ECandidates[i].id + " - " +ECandidates[i].name + " , " + ECandidates[i].age + "<br>";
+      }
+      
+      for (var b=0; b < BECandidates.length; b++)
+      {
+          bListCan.innerHTML += "" + BECandidates[b].bid + " - " + BECandidates[b].bname + " , " + BECandidates[b].bage + "<br>";
+      }
+      
+    function cVote(){
+		for (var r=0; r < ECandidates.length; r++) {
+		try {
+		if (canName.value == "") {
+		throw "Input is empty";
+		} else if (canName.value == ECandidates[r].name ) {
+		output.innerHTML = "";
+		output.innerHTML = ECandidates[r].des;
+		} 
+		} catch (e) {
+		output.innerHTML = "";
+		output.innerHTML = "" +e;
+		}
+		}
+	  }
+
+      </script>
+  </body>
+</html>
